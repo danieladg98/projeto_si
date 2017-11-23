@@ -24,7 +24,7 @@ session_start();
 ?>
 
 <?php
-include 'parts/navbar.php';
+include_once 'parts/navbar.php';
 ?>
 
 <div>

@@ -24,7 +24,8 @@ session_start();
 ?>
 
 <?php
-include 'parts/navbar.php';
+include_once 'parts/navbar.php';
+include 'parts/getAlbum.php';
 ?>
 
 <div>
@@ -35,9 +36,22 @@ include 'parts/navbar.php';
 
 
 <div class="container">
-    <h2>Vinyl 10</h2>
 
+    <img src=<?php echo $albumImage ?> />
 
+    <?php
+        if($albumStock == 0){
+            print "<h4>Out of Stock</h4>";
+        } else {
+            print "<h4>In Stock</h4>";
+        }
+    ?>
+
+    <h2><?php echo $albumArtist ?></h2>
+    <h4><?php echo $albumName ?></h4>
+    <p><?php echo $albumDescription ?></p>
+    <h6>Release Date: <?php echo $albumRelease_date ?></h6>
+    <h6>Genre: <?php echo $albumGenre ?></h6>
 
 </div>
 
