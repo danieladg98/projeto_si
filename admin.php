@@ -82,7 +82,11 @@ if (!$conn) {
 }
 
 //Verifica se todos os campos do formulário foram preenchidos e não estão vazios
-if ((isset($_POST['image']) && !empty($_POST['image'])) && (isset($_POST['name']) && !empty($_POST['name'])) && (isset($_POST['artist']) && !empty($_POST['artist']) && (isset($_POST['release_date']) && !empty($_POST['release_date']) && (isset($_POST['genre']) && !empty($_POST['genre']) && (isset($_POST['price']) && !empty($_POST['price']) && (isset($_POST['stock']) && !empty($_POST['stock']) && (isset($_POST['description']) && !empty($_POST['description']) && (isset($_POST['tracks']) && !empty($_POST['tracks']))){$escapedImage = mysqli_real_escape_string($conn, $_POST['image']);
+if ((getimagesize($FILES['image']['tmp-name'])==TRUE) && (isset($_POST['name']) && !empty($_POST['name']) && (isset($_POST['artist']) && !empty($_POST['artist']) && (isset($_POST['release_date']) && !empty($_POST['release_date']) && (isset($_POST['genre']) && !empty($_POST['genre']) && (isset($_POST['price']) && !empty($_POST['price']) && (isset($_POST['stock']) && !empty($_POST['stock'])) && (isset($_POST['description']) && !empty($_POST['description']) && (isset($_POST['tracks']) && !empty($_POST['tracks']))){
+    $image= adslashes($FILES['image']['tmp-name']);
+    $imagem= image_get_contents($image);
+    $imagem= base64_encode($imagem);
+
 $escapedAlbumName = mysqli_real_escape_string($conn, $_POST['name']);
 $escapedArtist = mysqli_real_escape_string($conn, $_POST['artist']);
 $escapedReleaseDate = mysqli_real_escape_string($conn, $_POST['release_date']);
@@ -97,45 +101,26 @@ $resultados = mysqli_query($conn, "select name,artist from albums where name='$e
 if (mysqli_num_rows($resultados) > 0) {
     $linha = mysqli_fetch_assoc($resultados);
     if ($escapedAlbumName == $linha['name'] && $escapedArtist == $linha['artist'] ) {
-        print "Album já existente!";
+        print "This album already exists!";
     }
     //caso o mail nao existir corre o codigo abaixo
 } else {
-        $msg = 'Conta criada, <br /> por favor verifique a sua conta através do link que enviamos para o seu email.';
+    $msg = 'Album added successfully!';
 
-        //inserção dos dados na base de dados
-        mysqli_query($conn, "INSERT INTO albums (name , email , password , hash) VALUES(
-            '" . mysqli_real_escape_string($conn, ucwords($escapedNome)) . "',
-            '" . mysqli_real_escape_string($conn, $escapedMail) . "',
-            '" . mysqli_real_escape_string($conn, $passwordHashed) . "',
-            '" . mysqli_real_escape_string($conn, $hash) . "')") or die("Erro na criação de conta: " . mysqli_connect_error());
-
-        $para = $escapedMail; // Send email to our user
-        $assunto = 'Signup Vinyl Records | Verificação Email'; // Give the email a subject
-        $mensagem = '
- 
-                Obrigado por se registar em Vinyl Records!
-                A sua conta foi criada, pode fazer o login no nosso website com as credenciais que utilizou e confirmadas abaixo, logo após verificar a sua conta através do link fornecido.
-                
-                ------------------------
-                Email: ' . $escapedMail . '
-                Password: ' . $escapedPassword . '
-                ------------------------
-                 
-                Utilize o link abaixo para verificar a sua conta:
-                http://localhost:63342/Projeto%20SI/verify.php?email=' . $escapedMail . '&hash=' . $hash . '
-                
-                Nota: o acesso à àrea de cliente é restrita até confirmar o seu email.
- 
-                ';
-
-        $headers = 'From:noreply@vinylrecordslda.com'; // Nome de quem envia o link
-        mail($para, $assunto, $mensagem, $headers); // Envia o código
-
-        mysqli_close($conn);
-    }
+    //inserção dos dados na base de dados
+    mysqli_query($conn, "INSERT INTO albums (name , description , release_date , genre, artist, price, image, stock, active) VALUES(
+            '" . mysqli_real_escape_string($conn, ucwords($escapedAlbumName)) . "',
+            '" . mysqli_real_escape_string($conn, $escapedDescription) . "',
+            '" . mysqli_real_escape_string($conn, $escapedReleaseDate) . "',
+            '" . mysqli_real_escape_string($conn, $escapedGenre) . "',
+           '" . mysqli_real_escape_string($conn, ucwords($escapedArtist)) . "',
+            '" . mysqli_real_escape_string($conn, $escapedPrice) . "',
+            '" . $image . "',
+            '" . mysqli_real_escape_string($conn, $escapedStock) . "',
+             '" . mysqli_real_escape_string($conn, '1') . "')") or die("Error: " . mysqli_connect_error());
 }
-
+} else {
+    print "Please fill all the fields!";
 }
 
 
