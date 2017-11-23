@@ -19,23 +19,50 @@
 </head>
 <body>
 
-<div class="col-md-2">
+<div class="col-md-3">
     <form action="" method="post" enctype="multipart/form-data">
         <label for="image">Image</label>
+        <br/>
         <input type="file" name="image" value=""/>
+        <br/>
+        <br/>
         <label for="album">Name</label>
+        <br/>
         <input type="text" name="name" value=""/>
+        <br/>
+        <br/>
         <label for="genre">Artist</label>
+        <br/>
         <input type="text" name="artist" value=""/>
+        <br/>
+        <br/>
         <label for="price">Release Date</label>
+        <br/>
         <input type="text" name="release_date" value=""/>
+        <br/>
+        <br/>
         <label for="artist">Genre</label>
+        <br/>
         <input type="text" name="genre" value=""/>
+        <br/>
+        <br/>
         <label for="stock">Price</label>
+        <br/>
         <input type="text" name="price" value=""/>
+        <br/>
+        <br/>
         <label for="stock">Stock</label>
+        <br/>
         <input type="text" name="stock" value=""/>
+        <br/>
+        <br/>
+        <label for="stock">Description</label>
+        <br/>
+        <input type="text" name="description" value=""/>
+        <br/>
+        <br/>
         <label for="stock">Tracks</label>
+        <br/>
         <input type="text" name="tracks" value=""/>
 
         <input type="submit" name="signup_submit" value="Add"/>
@@ -55,39 +82,37 @@ if (!$conn) {
 }
 
 //Verifica se todos os campos do formulário foram preenchidos e não estão vazios
-if ((isset($_POST['nome']) && !empty($_POST['nome'])) && (isset($_POST['email']) && !empty($_POST['email'])) && (isset($_POST['password']) && !empty($_POST['password']))) {
-    $escapedNome = mysqli_real_escape_string($conn, $_POST['nome']);
-    $escapedMail = mysqli_real_escape_string($conn, $_POST['email']);
-    $escapedPassword = mysqli_real_escape_string($conn, $_POST['password']);
+if ((isset($_POST['image']) && !empty($_POST['image'])) && (isset($_POST['name']) && !empty($_POST['name'])) && (isset($_POST['artist']) && !empty($_POST['artist']) && (isset($_POST['release_date']) && !empty($_POST['release_date']) && (isset($_POST['genre']) && !empty($_POST['genre']) && (isset($_POST['price']) && !empty($_POST['price']) && (isset($_POST['stock']) && !empty($_POST['stock']) && (isset($_POST['description']) && !empty($_POST['description']) && (isset($_POST['tracks']) && !empty($_POST['tracks']))){$escapedImage = mysqli_real_escape_string($conn, $_POST['image']);
+$escapedAlbumName = mysqli_real_escape_string($conn, $_POST['name']);
+$escapedArtist = mysqli_real_escape_string($conn, $_POST['artist']);
+$escapedReleaseDate = mysqli_real_escape_string($conn, $_POST['release_date']);
+$escapedGenre = mysqli_real_escape_string($conn, $_POST['genre']);
+$escapedPrice = mysqli_real_escape_string($conn, $_POST['price']);
+$escapedStock = mysqli_real_escape_string($conn, $_POST['stock']);
+$escapedDescription = mysqli_real_escape_string($conn, $_POST['description']);
+$escapedTracks = mysqli_real_escape_string($conn, $_POST['tracks']);
 
-    //Verifica se o email já existe na base de dados
-    $resultados = mysqli_query($conn, "select email from clients where (email='$escapedMail');");
-    if (mysqli_num_rows($resultados) > 0) {
-        $linha = mysqli_fetch_assoc($resultados);
-        if ($escapedMail == $linha['email']) {
-            print "Email já existente!";
-        }
-        //caso o mail nao existir corre o codigo abaixo
-    } else {
-        //verifica se o mail é valido e está bem escrito
-        if (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/', $escapedMail)) {
-            $msg = 'Email inválido, por favor tente de novo';
-        } else {
-            $msg = 'Conta criada, <br /> por favor verifique a sua conta através do link que enviamos para o seu email.';
+//Verifica se o email já existe na base de dados
+$resultados = mysqli_query($conn, "select name,artist from albums where name='$escapedAlbumName' AND artist='$escapedArtist'");
+if (mysqli_num_rows($resultados) > 0) {
+    $linha = mysqli_fetch_assoc($resultados);
+    if ($escapedAlbumName == $linha['name'] && $escapedArtist == $linha['artist'] ) {
+        print "Album já existente!";
+    }
+    //caso o mail nao existir corre o codigo abaixo
+} else {
+        $msg = 'Conta criada, <br /> por favor verifique a sua conta através do link que enviamos para o seu email.';
 
-            $hash = md5(rand(0, 1000));
-            $passwordHashed = password_hash($escapedPassword, PASSWORD_DEFAULT);
-
-            //inserção dos dados na base de dados
-            mysqli_query($conn, "INSERT INTO clients (name , email , password , hash) VALUES(
+        //inserção dos dados na base de dados
+        mysqli_query($conn, "INSERT INTO albums (name , email , password , hash) VALUES(
             '" . mysqli_real_escape_string($conn, ucwords($escapedNome)) . "',
             '" . mysqli_real_escape_string($conn, $escapedMail) . "',
             '" . mysqli_real_escape_string($conn, $passwordHashed) . "',
             '" . mysqli_real_escape_string($conn, $hash) . "')") or die("Erro na criação de conta: " . mysqli_connect_error());
 
-            $para = $escapedMail; // Send email to our user
-            $assunto = 'Signup Vinyl Records | Verificação Email'; // Give the email a subject
-            $mensagem = '
+        $para = $escapedMail; // Send email to our user
+        $assunto = 'Signup Vinyl Records | Verificação Email'; // Give the email a subject
+        $mensagem = '
  
                 Obrigado por se registar em Vinyl Records!
                 A sua conta foi criada, pode fazer o login no nosso website com as credenciais que utilizou e confirmadas abaixo, logo após verificar a sua conta através do link fornecido.
@@ -104,12 +129,12 @@ if ((isset($_POST['nome']) && !empty($_POST['nome'])) && (isset($_POST['email'])
  
                 ';
 
-            $headers = 'From:noreply@vinylrecordslda.com'; // Nome de quem envia o link
-            mail($para, $assunto, $mensagem, $headers); // Envia o código
+        $headers = 'From:noreply@vinylrecordslda.com'; // Nome de quem envia o link
+        mail($para, $assunto, $mensagem, $headers); // Envia o código
 
-            mysqli_close($conn);
-        }
+        mysqli_close($conn);
     }
+}
 
 }
 
