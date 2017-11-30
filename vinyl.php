@@ -37,7 +37,7 @@ include 'parts/getAlbum.php';
 
 <div class="container">
 
-    <img src=<?php echo $albumImage ?> />
+    <!-- <img src=<?php echo $albumImage ?> /> -->
 
     <?php
         if($albumStock == 0){
