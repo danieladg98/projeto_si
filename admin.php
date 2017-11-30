@@ -112,14 +112,14 @@ if (isset($_POST['add'])) {
             //inserção dos dados na tabela albums
             mysqli_query($conn, "INSERT INTO albums (name , description , release_date , genre, artist, price, image, stock, active) VALUES(
             '" . mysqli_real_escape_string($conn, ucwords($escapedAlbumName)) . "',
-            '" . mysqli_real_escape_string($conn, ucwords($escapedDescription)) . "',
+            '" . mysqli_real_escape_string($conn, $escapedDescription) . "',
             '" . mysqli_real_escape_string($conn, $escapedReleaseDate) . "',
             '" . mysqli_real_escape_string($conn, ucwords($escapedGenre)) . "',
-           '" . mysqli_real_escape_string($conn, ucwords($escapedArtist)) . "',
+            '" . mysqli_real_escape_string($conn, ucwords($escapedArtist)) . "',
             '" . mysqli_real_escape_string($conn, $escapedPrice) . "',
-            '{$image}',
+            '" . $image . "',
             '" . mysqli_real_escape_string($conn, $escapedStock) . "',
-             '" . mysqli_real_escape_string($conn, '1') . "')") or die("Error: " . mysqli_connect_error());
+            '" . mysqli_real_escape_string($conn, '1') . "')") or die("Error: 1" . mysqli_connect_error());
 
             $resultados = mysqli_query($conn, "select name,artist from albums where name='$escapedAlbumName' AND artist='$escapedArtist'");
             $linha = mysqli_fetch_assoc($resultados);
@@ -127,7 +127,7 @@ if (isset($_POST['add'])) {
             for ($x = 0; $x < count($arrayTracks); $x++) {
                 mysqli_query($conn, "INSERT INTO musics (name , albums_id) VALUES(
             '" . mysqli_real_escape_string($conn, $arrayTracks[$x]) . "',
-             '" . mysqli_real_escape_string($conn, $linha['id']) . "')") or die("Error: " . mysqli_connect_error());
+             '" . mysqli_real_escape_string($conn, $linha['id']) . "')") or die("Error: 2" . mysqli_connect_error());
             }
 
 
