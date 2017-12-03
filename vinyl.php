@@ -37,22 +37,51 @@ include 'parts/getAlbum.php';
 
 <div class="container">
 
-    <!-- <img src=<?php echo $albumImage ?> /> -->
+    <div class="row">
+        <div class="col-6">
+            <img src='img/cerdo%20patatero.jpg'/>
+        </div>
+        <div class="col-6">
+            <?php
+            if ($albumStock == 0) {
+                print "<h4>Out of Stock</h4>";
+            } else {
+                print "<h4>In Stock</h4>";
+            }
+            ?>
 
-    <?php
-        if($albumStock == 0){
-            print "<h4>Out of Stock</h4>";
-        } else {
-            print "<h4>In Stock</h4>";
-        }
-    ?>
+            <h2><?php echo $albumArtist ?></h2>
+            <h4><?php echo $albumName ?></h4>
+            <p><?php echo $albumDescription ?></p>
+            <h6>Release Date: <?php echo $albumRelease_date ?></h6>
+            <h6>Genre: <?php echo $albumGenre ?></h6>
+            <form class="form-group" action="" method="post">
+                <label>Select Quantity:</label>
+                <br>
+                <select id="" class="form-control" name="vinyl_quantity" onchange="changeFunc(value);">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <br>
+                <h6 id="price_tag">€ <?php print $albumPrice; ?></h6>
+                <script type="text/javascript">
 
-    <h2><?php echo $albumArtist ?></h2>
-    <h4><?php echo $albumName ?></h4>
-    <p><?php echo $albumDescription ?></p>
-    <h6>Release Date: <?php echo $albumRelease_date ?></h6>
-    <h6>Genre: <?php echo $albumGenre ?></h6>
+                    var price = <?php print $albumPrice; ?> ;
 
+                    function changeFunc($i) {
+                        price = <?php print $albumPrice; ?> ;
+                        price = price * $i;
+                        $("#price_tag").html("€ "+price);
+                    }
+
+                </script>
+                <input class="btn btn-dark" type="submit" name="addtocart" value="ADD TO CART">
+            </form>
+        </div>
+    </div>
 </div>
 
 

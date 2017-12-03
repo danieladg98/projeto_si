@@ -49,22 +49,25 @@ include_once 'parts/navbar.php';
         //Caso haja ligação executa o código abaixo!vv
     }
 
-    $resultados = mysqli_query($conn, "select artist, name, genre, price from albums where active = 1;");
-
+    $resultados = mysqli_query($conn, "select id, artist, name, genre, price from albums where active = 1;");
     $nrows = ceil(mysqli_num_rows($resultados)/3);
 
     for ($i = 0; $i < $nrows; $i++) {
         print "<div class='row'>";
         for($j = 0; $j < 3; $j++) {
-            print "<div class=\"card border-0\" style=\"width: 20rem;\">
-                        <img class=\"card-img-top\" src=\"img/cerdo%20patatero.jpg\" alt=\"Card image cap\">
-                        <div class=\"card-block\">
-                            <h4 class=\"card-title\">Card title</h4>
-                            <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>
+            while ($linha = mysqli_fetch_assoc($resultados)) {
+
+                print "<a class='mx-auto' href='vinyl.php?id=".$linha['id']."'><div class='card border-0' style='width: 20rem;'>
+                        <img class='card-img-top' src='img/cerdo%20patatero.jpg' alt='Card image cap'>
+                        <div class='card-block'>
+                            <h4 class='card-title'>".$linha['name']."</h4>
+                            <p class='card-text'>".$linha['artist']."</p>
+                            <p class='card-text'>€ ".$linha['price']."</p>
                         </div>
-                    </div>
+                    </div></a>
                   ";
+
+            }
         }
         print "</div>";
     }
