@@ -21,9 +21,9 @@
 
 <div class="col-md-3">
     <form action="" method="post" enctype="multipart/form-data">
-        <label for="image">Image</label>
+        <!--<label for="image">Image</label>
         <br/>
-        <input type="file" name="image" value=""/>
+        <input type="file" name="image" value=""/>-->
         <br/>
         <br/>
         <label for="album">Name</label>
@@ -81,13 +81,12 @@ if (!$conn) {
     //Caso haja ligação executa o código abaixo!vv
 }
 
-
+//verfica se add foi pressionado
 if (isset($_POST['add'])) {
 //Verifica se todos os campos do formulário foram preenchidos e não estão vazios
     if ((isset($_POST['name']) && !empty($_POST['name'])) && (isset($_POST['artist']) && !empty($_POST['artist'])) && (isset($_POST['release_date']) && !empty($_POST['release_date'])) && (isset($_POST['genre']) && !empty($_POST['genre'])) && (isset($_POST['price']) && !empty($_POST['price'])) && (isset($_POST['stock']) && !empty($_POST['stock'])) && (isset($_POST['description']) && !empty($_POST['description'])) && (isset($_POST['tracks']) && !empty($_POST['tracks']))) {
-        $image = addslashes($_FILES['image']['tmp_name']);
-        $imagem = file_get_contents($image);
-        $imagem = base64_encode($imagem);
+        /*$imagem = file_get_contents($image);
+        $imagem = base64_encode($imagem);*/
 
         $escapedAlbumName = mysqli_real_escape_string($conn, $_POST['name']);
         $escapedArtist = mysqli_real_escape_string($conn, $_POST['artist']);
@@ -110,16 +109,16 @@ if (isset($_POST['add'])) {
             //caso o album nao existir corre o codigo abaixo
         } else {
             //inserção dos dados na tabela albums
-            mysqli_query($conn, "INSERT INTO albums (name , description , release_date , genre, artist, price, image, stock, active) VALUES(
+            mysqli_query($conn, "INSERT INTO albums (name , description , release_date , genre, artist, price, stock) VALUES(
             '" . mysqli_real_escape_string($conn, ucwords($escapedAlbumName)) . "',
             '" . mysqli_real_escape_string($conn, $escapedDescription) . "',
             '" . mysqli_real_escape_string($conn, $escapedReleaseDate) . "',
             '" . mysqli_real_escape_string($conn, ucwords($escapedGenre)) . "',
-            '" . mysqli_real_escape_string($conn, ucwords($escapedArtist)) . "',
-            '" . mysqli_real_escape_string($conn, $escapedPrice) . "',
-            '" . $image . "',
-            '" . mysqli_real_escape_string($conn, $escapedStock) . "',
-            '" . mysqli_real_escape_string($conn, '1') . "')") or die("Error: 1" . mysqli_connect_error());
+             '" . mysqli_real_escape_string($conn, ucwords($escapedArtist)) . "',
+             '" . mysqli_real_escape_string($conn, $escapedPrice) . "',
+           '" . mysqli_real_escape_string($conn, $escapedStock) . "')")  or die("Error: 2" . mysqli_connect_error());
+
+            print "lalala!";
 
             $resultados = mysqli_query($conn, "select name,artist from albums where name='$escapedAlbumName' AND artist='$escapedArtist'");
             $linha = mysqli_fetch_assoc($resultados);
