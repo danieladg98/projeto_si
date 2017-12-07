@@ -15,7 +15,6 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
     <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script language="JavaScript" src="searchScript.js"></script>
 
 </head>
 <body>
@@ -35,34 +34,30 @@ include_once 'parts/navbar.php';
 </div>
 
 
+<div class="container">
 
-    <div class="row">
-        <div class="col-3">
+    <h2>Search</h2>
 
-        </div>
-        <div class="col-9">
-            <h2>Our Products</h2>
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $bd = "Projeto_Si";
+    $conn = mysqli_connect($servername, $username, $password, $bd);
+    if (!$conn) {
+        die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
+        //Caso haja ligação executa o código abaixo!vv
+    }
 
-            <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $bd = "Projeto_Si";
-            $conn = mysqli_connect($servername, $username, $password, $bd);
-            if (!$conn) {
-                die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
-                //Caso haja ligação executa o código abaixo!vv
-            }
+    $resultados = mysqli_query($conn, "select id, artist, name, genre, price from albums where active = 1;");
+    $nrows = ceil(mysqli_num_rows($resultados)/3);
 
-            $resultados = mysqli_query($conn, "select id, artist, name, genre, price from albums where active = 1;");
-            $nrows = ceil(mysqli_num_rows($resultados)/3);
+    for ($i = 0; $i < $nrows; $i++) {
+        print "<div class='row'>";
+        for($j = 0; $j < 3; $j++) {
+            while ($linha = mysqli_fetch_assoc($resultados)) {
 
-            for ($i = 0; $i < $nrows; $i++) {
-                print "<div class='row'>";
-                for($j = 0; $j < 3; $j++) {
-                    while ($linha = mysqli_fetch_assoc($resultados)) {
-
-                        print "<a class='mx-left' href='vinyl.php?id=".$linha['id']."'><div class='card border-0' style='width: 20rem;'>
+                print "<a class='mx-auto' href='vinyl.php?id=".$linha['id']."'><div class='card border-0' style='width: 20rem;'>
                         <img class='card-img-top' src='img/cerdo%20patatero.jpg' alt='Card image cap'>
                         <div class='card-block'>
                             <h4 class='card-title'>".$linha['name']."</h4>
@@ -72,17 +67,16 @@ include_once 'parts/navbar.php';
                     </div></a>
                   ";
 
-                    }
-                }
-                print "</div>";
             }
+        }
+        print "</div>";
+    }
+
+    print($_GET("list"));
+    ?>
 
 
-            ?>
-
-        </div>
-    </div>
-
+</div>
 
 
 </body>

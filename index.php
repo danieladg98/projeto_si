@@ -15,6 +15,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
     <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script language="JavaScript" src="searchScript.js"></script>
 
 </head>
 <body>
