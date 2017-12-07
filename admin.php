@@ -19,6 +19,14 @@
 </head>
 <body>
 
+<?php
+session_start();
+?>
+
+<?php
+include_once 'parts/navbar.php';
+?>
+
 <div class="col-md-3">
     <form action="" method="post" enctype="multipart/form-data">
         <label for="image">Image</label>

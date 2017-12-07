@@ -47,30 +47,30 @@ if (isset($_POST['signup_submit'])) {
 
                     //inserção dos dados na base de dados
                     mysqli_query($conn, "INSERT INTO clients (name , email , password , hash, balance) VALUES(
-            '" . mysqli_real_escape_string($conn, ucwords($escapedNome)) . "',
-            '" . mysqli_real_escape_string($conn, $escapedMail) . "',
-            '" . mysqli_real_escape_string($conn, $passwordHashed) . "',
-            '" . mysqli_real_escape_string($conn, $hash) . "',
-            '" . mysqli_real_escape_string($conn, $balance) . "')") or die("Erro na criação de conta: " . mysqli_connect_error());
+                    '" . mysqli_real_escape_string($conn, ucwords($escapedNome)) . "',
+                    '" . mysqli_real_escape_string($conn, $escapedMail) . "',
+                    '" . mysqli_real_escape_string($conn, $passwordHashed) . "',
+                    '" . mysqli_real_escape_string($conn, $hash) . "',
+                    '" . mysqli_real_escape_string($conn, $balance) . "')") or die("Erro na criação de conta: " . mysqli_connect_error());
 
                     $para = $escapedMail; // Send email to our user
                     $assunto = 'Signup Vinyl Records | Verificação Email'; // Give the email a subject
                     $mensagem = '
  
-                Obrigado por se registar em Vinyl Records!
-                A sua conta foi criada, pode fazer o login no nosso website com as credenciais que utilizou e confirmadas abaixo, logo após verificar a sua conta através do link fornecido.
+                    Obrigado por se registar em Vinyl Records!
+                    A sua conta foi criada, pode fazer o login no nosso website com as credenciais que utilizou e confirmadas abaixo, logo após verificar a sua conta através do link fornecido.
                 
-                ------------------------
-                Email: ' . $escapedMail . '
-                Password: ' . $escapedPassword . '
-                ------------------------
+                    ------------------------
+                    Email: ' . $escapedMail . '
+                    Password: ' . $escapedPassword . '
+                    ------------------------
                  
-                Utilize o link abaixo para verificar a sua conta:
-                http://localhost/projeto_si/verify.php?email=' . $escapedMail . '&hash=' . $hash . '
+                    Utilize o link abaixo para verificar a sua conta:
+                    http://localhost/projeto_si/verify.php?email=' . $escapedMail . '&hash=' . $hash . '
                 
-                Nota: o acesso à àrea de cliente é restrita até confirmar o seu email.
+                    Nota: o acesso à àrea de cliente é restrita até confirmar o seu email.
  
-                ';
+                    ';
 
                     $headers = 'From:noreply@vinylrecordslda.com'; // Nome de quem envia o link
                     mail($para, $assunto, $mensagem, $headers); // Envia o código
