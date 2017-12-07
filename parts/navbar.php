@@ -122,6 +122,8 @@
                     <input type="text" name="email" value=""/>
                     <label for="nome">Password</label>
                     <input type="password" name="password" value=""/>
+                    <label for="nome">Confirm Password</label>
+                    <input type="password" name="confirm_password" value=""/>
                     <input type="submit" name="signup_submit" value="Sign Up"/>
                 </form>
 

@@ -63,14 +63,14 @@ CREATE TABLE clients(
 );
 
 CREATE TABLE albums(
-	id		 bigint,
+	id		 bigint AUTO_INCREMENT,
 	name	 varchar(128),
 	description	 varchar(1024),
 	release_date date,
 	genre	 varchar(128),
 	artist	 varchar(128),
 	price	 float(32),
-	image	 longblob,
+	image	 varchar(1024),
 	stock	 bigint,
 	active	 boolean DEFAULT '0',
 

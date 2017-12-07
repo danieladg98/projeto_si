@@ -39,7 +39,8 @@ include 'parts/getAlbum.php';
 
     <div class="row">
         <div class="col-6">
-            <img src='img/cerdo%20patatero.jpg'/>
+            <?php echo "<img src='" . $albumImage . "'/>" ?>
+            <!--<img src='img/cerdo%20patatero.jpg'/>-->
         </div>
         <div class="col-6">
             <?php
