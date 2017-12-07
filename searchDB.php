@@ -31,15 +31,16 @@ if ($result = mysqli_query($conn, $sql)) {
         }
     } else {
 //set a null value to list[] if no result to prevent error
+
         $listname[] = "";
         $listid[] = "";
     }
 }
 
 if (!empty($value)) {
-    if ($matched = preg_grep('~' . $value . '~', $listname)) {
+    if ($matched = preg_grep('~' . $value . '~i', $listname)) {
         $count = 0;
-        echo '<ul>';
+        print '<ul>';
         while ($count < 5) {
             if (isset($matched[$count])) {
                 /*
@@ -49,7 +50,7 @@ if (!empty($value)) {
             }
             $count++;
         }
-        echo '</ul>';
+        print '</ul>';
     } else {
         echo "No result";
     }
