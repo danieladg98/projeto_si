@@ -54,7 +54,7 @@ include_once 'parts/navbar.php';
                 //Caso haja ligação executa o código abaixo!vv
             }
 
-            $resultados = mysqli_query($conn, "select id, artist, name, genre, price from albums where active = 1;");
+            $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 order by release_date");
             $nrows = ceil(mysqli_num_rows($resultados)/3);
 
             for ($i = 0; $i < $nrows; $i++) {
@@ -63,7 +63,7 @@ include_once 'parts/navbar.php';
                     while ($linha = mysqli_fetch_assoc($resultados)) {
 
                         print "<a class='mx-left' href='vinyl.php?id=".$linha['id']."'><div class='card border-0' style='width: 20rem;'>
-                        <img class='card-img-top' src='img/cerdo%20patatero.jpg' alt='Card image cap'>
+                        <img class='card-img-top' src='" . $linha['image'] . "' alt='Card image cap'>
                         <div class='card-block'>
                             <h4 class='card-title'>".$linha['name']."</h4>
                             <p class='card-text'>".$linha['artist']."</p>

@@ -43,11 +43,13 @@ if (isset($_POST['login_submit'])) {
                         $_SESSION['loggedin'] = true;
                         $_SESSION['admin'] = false;
                         $_SESSION['name'] = $linha['name'];
-                        header("Refresh:0");
+                        $_SESSION['user_id'] = $linha['id'];
+                        $url = "Location: ".$_SERVER['REQUEST_URI'];
+                        $reload=preg_replace('/\\?.*/', '', $url);
+                        header($reload);
                         exit;
                     } else {
                         print "Password incorreta!";
-
                         print "<script type='text/javascript'>
                         $(document).ready(function(){
                             $('#loginModal').modal('show');
@@ -68,7 +70,10 @@ if (isset($_POST['login_submit'])) {
                     $_SESSION['loggedin'] = true;
                     $_SESSION['admin'] = true;
                     $_SESSION['name'] = $linha2['name'];
-                    header("Refresh:0");
+                    $_SESSION['user_id'] = $linha2['id'];
+                    $url = "Location: ".$_SERVER['REQUEST_URI'];
+                    $reload=preg_replace('/\\?.*/', '', $url);
+                    header($reload);
                     exit;
                 } else {
                     print "Password incorreta!";

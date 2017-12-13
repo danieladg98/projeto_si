@@ -1,6 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light  fixed-top">
     <a class="navbar-brand" href="index.php">Vinyl Records</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -13,17 +14,21 @@
                 <a class="nav-link" href="#">Vinyl</a>
             </li>
             <li class="nav-item dropdown">
-                <i class="nav-link fa fa-search" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <i class="nav-link fa fa-search" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <form class="form-inline dropdown-item" action="searchRedirect.php" method="post">
-                        <input class="form-control mr-sm-2" type="text" id="userInput" placeholder ="Search" onkeyup="process()" autocomplete="off">
-                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search_submit" value="Search"/>
+                        <input class="form-control mr-sm-2" type="text" id="userInput" placeholder="Search"
+                               onkeyup="process()" autocomplete="off">
+                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search_submit"
+                               value="Search"/>
                         <div id="filter"></div>
                     </form>
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <?php
+                ob_start();
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
@@ -38,19 +43,29 @@
 
                     print '<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' . $_SESSION['name'] . ' </a>';
 
-                    if($_SESSION['admin'] == true) {
-                           print '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    if ($_SESSION['admin'] == true) {
+                        print '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-right" href="admin.php">Dashboard</a>
+                                <a class="dropdown-item text-right" href="admin_messages.php">Messages</a>
                                 <a class="dropdown-item text-right" href="logout.php">Log Out</a>
                            </div>';
                     } else {
-                       print  '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        print  '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-right" href="client.php">My Account</a>
+                                <a class="dropdown-item text-right" href="client.php">Messages</a>
                                 <a class="dropdown-item text-right" href="logout.php">Log Out</a>
                            </div>';
                     }
                 } else {
                     print '<a class="nav-link" data-toggle="modal" data-target="#loginModal">Log In</a>';
+                }
+
+                if (isset($_GET['error']) && $_GET['error'] == "login") {
+                    print "<script type='text/javascript'>
+                        $(document).ready(function(){
+                            $('#loginModal').modal('show');
+                         });
+                       </script>";
                 }
                 ?>
             </li>
@@ -81,6 +96,19 @@
                     <input type="password" name="password" value=""/>
                     <input type="submit" name="login_submit" value="Log In"/>
                 </form>
+
+                <div id="displayErrors">
+                    <?php
+                    if(isset($_GET['msg'])) {
+                        if($_GET['msg'] == "error001"){
+                            print "You need to login to access this page!";
+                        }
+                        else if($_GET['msg'] == "error002"){
+                            print "You don't have admin credentials to access this page!";
+                        }
+                    }
+                    ?>
+                </div>
 
                 <!-- Abrir o Modal de signup -->
                 <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"

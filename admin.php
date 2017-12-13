@@ -25,7 +25,14 @@ session_start();
 
 <?php
 include_once 'parts/navbar.php';
+include_once 'parts/verifyifloggedadmin.php';
 ?>
+
+<div>
+    <br>
+    <br>
+    <br>
+</div>
 
 <div class="col-md-3">
     <form action="" method="post" enctype="multipart/form-data">
@@ -78,7 +85,8 @@ include_once 'parts/navbar.php';
         <label for="stock">Tracks (separed by commas)</label>
         <br/>
         <input type="text" name="tracks" class="nonpicture" value=""/>
-
+        <br/>
+        <br/>
         <input type="submit" name="add" value="Add"/>
     </form>
 </div>
@@ -154,7 +162,7 @@ if (isset($_POST['add'])) {
         } else {
 
             if (($_FILES['album_cover']['name'] != "")) {
-                // Where the file is going to be stored
+                // Onde vai ser guardada a imagem
                 $target_dir = "img/albumCover/";
                 $file = $_FILES['album_cover']['name'];
                 $path = pathinfo($file);
@@ -163,7 +171,7 @@ if (isset($_POST['add'])) {
                 $temp_name = $_FILES['album_cover']['tmp_name'];
                 $path_filename_ext = $target_dir . $filename . "." . $ext;
 
-                // Check if file already exists
+                // Verifica se a image ja existe
                 if (file_exists($path_filename_ext)) {
                     echo "Image already exists.";
                 } else {
@@ -178,21 +186,22 @@ if (isset($_POST['add'])) {
                     '" . mysqli_real_escape_string($conn, ucwords($escapedArtist)) . "',
                     '" . mysqli_real_escape_string($conn, $escapedPrice) . "',
                     '" . "img/albumCover/" . $filename . "." . $ext . "',
-                    '" . mysqli_real_escape_string($conn, $escapedStock) . "')") or die("Error: 1" . mysqli_error($conn));
+                    '" . mysqli_real_escape_string($conn, $escapedStock) . "')") or die("Error: " . mysqli_error($conn));
 
 
                     $resultados = mysqli_query($conn, "select name, artist, id from albums where name='$escapedAlbumName' AND artist='$escapedArtist'");
                     $linha = mysqli_fetch_assoc($resultados);
                     mysqli_query($conn, "INSERT INTO musics (name , albums_id) VALUES(
                     '" . mysqli_real_escape_string($conn, $escapedTracks) . "',
-                    '" . mysqli_real_escape_string($conn, $linha['id']) . "')") or die("Error: 2" . mysqli_error($conn));
+                    '" . mysqli_real_escape_string($conn, $linha['id']) . "')") or die("Error: " . mysqli_error($conn));
 
                 }
             }
 
         }
     } else {
-        print "Please fill all the fields!";
+        $message = "Please fill all the fields!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
     }
 }
 

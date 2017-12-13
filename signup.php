@@ -72,8 +72,8 @@ if (isset($_POST['signup_submit'])) {
  
                     ';
 
-                    $headers = 'From:noreply@vinylrecordslda.com'; // Nome de quem envia o link
-                    mail($para, $assunto, $mensagem, $headers); // Envia o código
+                    $headers = 'From:noreply@vinylrecordslda.com'; // Nome de quem envia o email
+                    mail($para, $assunto, $mensagem, $headers); // Envia o email
 
                     mysqli_close($conn);
                 }
