@@ -44,6 +44,11 @@ if (isset($_POST['login_submit'])) {
                         $_SESSION['admin'] = false;
                         $_SESSION['name'] = $linha['name'];
                         $_SESSION['user_id'] = $linha['id'];
+                        $resultados = mysqli_query($conn, "select * from compra where clients_id='".$_SESSION['user_id']."' AND finalizado='0'");
+                        if (mysqli_num_rows($resultados) == 0) {
+                            mysqli_query($conn, "INSERT INTO compra (clients_id) VALUES(
+                            '" . $_SESSION['user_id'] . "')") or die("Error: " . mysqli_error($conn));
+                        }
                         $url = "Location: ".$_SERVER['REQUEST_URI'];
                         $reload=preg_replace('/\\?.*/', '', $url);
                         header($reload);
