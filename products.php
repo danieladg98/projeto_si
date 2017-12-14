@@ -44,6 +44,7 @@ include_once 'parts/navbar.php';
             <h2>Our Products</h2>
 
             <?php
+
             $servername = "localhost";
             $username = "root";
             $password = "";

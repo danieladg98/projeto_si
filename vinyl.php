@@ -56,7 +56,7 @@ include 'parts/getAlbum.php';
             <p><?php echo $albumDescription ?></p>
             <h6>Release Date: <?php echo $albumRelease_date ?></h6>
             <h6>Genre: <?php echo $albumGenre ?></h6>
-            <form class="form-group" action="" method="post">
+            <?php print "<form class='form-group' action='parts/addtocart.php?id=".$_GET['id']."' method='post'>"?>
                 <label>Select Quantity:</label>
                 <br>
                 <select id="" class="form-control" name="vinyl_quantity" onchange="changeFunc(value);">
@@ -79,7 +79,7 @@ include 'parts/getAlbum.php';
                     }
 
                 </script>
-                <input class="btn btn-dark" type="submit" name="addtocart" value="ADD TO CART">
+                <input class="btn btn-dark" type="submit" name="addtocart" value="ADD TO CART" >
             </form>
         </div>
     </div>

@@ -41,19 +41,24 @@
 
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
+                    $resultados = mysqli_query($conn, "select balance from clients where id=".$_SESSION['user_id'].";");
+                    $linha = mysqli_fetch_assoc($resultados);
+
                     print '<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' . $_SESSION['name'] . ' </a>';
 
                     if ($_SESSION['admin'] == true) {
                         print '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-right" href="admin.php">Dashboard</a>
-                                <a class="dropdown-item text-right" href="admin_messages.php">Messages</a>
-                                <a class="dropdown-item text-right" href="logout.php">Log Out</a>
+                                <a  class="dropdown-item text-center" href="admin.php">Dashboard</a>
+                                <a class="dropdown-item text-center" href="admin_messages.php">Messages</a>
+                                <a class="dropdown-item text-center" href="logout.php">Log Out</a>
                            </div>';
                     } else {
                         print  '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-right" href="client.php">My Account</a>
-                                <a class="dropdown-item text-right" href="client.php">Messages</a>
-                                <a class="dropdown-item text-right" href="logout.php">Log Out</a>
+                                <a class="dropdown-item text-center" href="client.php">My Account</a>
+                                <a  class="dropdown-item text-center" href="client.php">Messages <span class="badge badge-secondary">42</span></a>
+                                <a class="dropdown-item text-center" href="logout.php">Log Out</a>
+                                <div class="dropdown-divider"></div>
+                                <p class="dropdown-item text-center"> Balance: '.$linha['balance'].'</p>
                            </div>';
                     }
                 } else {
