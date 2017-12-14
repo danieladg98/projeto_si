@@ -23,7 +23,7 @@
 session_start();
 
 include_once 'parts/navbar.php';
-include_once 'parts/verifyifloggedadmin.php';
+include_once 'parts/verifyifloggedclient.php';
 
 //Ligação à base de dados
 $servername = "localhost";
@@ -32,16 +32,16 @@ $password = "";
 $bd = "Projeto_Si";
 $conn = mysqli_connect($servername, $username, $password, $bd);
 if (!$conn) {
-die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
+    die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
 //Caso haja ligação executa o código abaixo!vv
 }
 ?>
 
-<div>
-    $resultados = mysqli_query($conn, "select name, artist, id from albums where name='$escapedAlbumName' AND artist='$escapedArtist'");
-    $linha = mysqli_fetch_assoc($resultados);
-    mysqli_query($conn, "INSERT INTO musics (name , albums_id) VALUES(
-    '" . mysqli_real_escape_string($conn, $escapedTracks) . "',
-    '" . mysqli_real_escape_string($conn, $linha['id']) . "')") or die("Error: " . mysqli_error($conn));
-
-</div>
+<?php
+$resultados = mysqli_query($conn, "select content from messages");
+while ($linha = mysqli_fetch_assoc($resultados)) {
+    echo $linha['content'];
+}
+?>
+</body>
+</html>
