@@ -22,6 +22,11 @@ if (mysqli_num_rows($resultados) > 0 ) {
     $albumImage = $linha['image'];
     $albumStock = $linha['stock'];
     $albumActive = $linha['active'];
+
+    $search = mysqli_query($conn, "select * from musics where albums_id = ".$_GET['id'].";");
+    $rows = mysqli_fetch_assoc($search);
+
+    $albumTracks = $rows['name'];
 } else {
 
     print "<script type='text/javascript'>

@@ -56,6 +56,13 @@ include 'parts/getAlbum.php';
             <p><?php echo $albumDescription ?></p>
             <h6>Release Date: <?php echo $albumRelease_date ?></h6>
             <h6>Genre: <?php echo $albumGenre ?></h6>
+            <h6>Tracks: </h6>
+            <?php
+                $tracks = explode(",",$albumTracks);
+                for($i=0;$i<count($tracks);$i++){
+                    print "<p>".($i+1)." - ".$tracks[$i]."</p>";
+                }
+            ?>
             <?php print "<form class='form-group' action='parts/addtocart.php?id=".$_GET['id']."' method='post'>"?>
                 <label>Select Quantity:</label>
                 <br>
