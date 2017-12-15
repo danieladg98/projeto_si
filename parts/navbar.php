@@ -45,12 +45,12 @@
                     print '<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' . $_SESSION['name'] . ' </a>';
 
                     if ($_SESSION['admin'] == true) {
-                        print '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a  class="dropdown-item text-center" href="admin.php">Dashboard</a>
-                                <a class="dropdown-item text-center" href="admin_messages.php">Messages</a>
-                                <a class="dropdown-item text-center" href="statistics.php">Statistics</a>
-                                <a class="dropdown-item text-center" href="logout.php">Log Out</a>
-                           </div>';
+                        print "<div class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
+                                <a  class='dropdown-item text-center' href='admin.php'>Dashboard</a>
+                                <a class='dropdown-item text-center' href='admin_messages.php'>Messages</a>
+                                <a class='dropdown-item text-center' href='statistics.php'>Statistics</a>
+                                <a class='dropdown-item text-center' href='logout.php'>Log Out</a>
+                            </div>";
                     } else {
                         print  "<div class='opdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
                                 <a class='dropdown-item text-center' href='client.php'>My Account</a>
