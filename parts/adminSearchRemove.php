@@ -22,10 +22,9 @@ if (isset($_POST['album_search_remove'])) {
 
         while($linha = mysqli_fetch_assoc($resultados)) {
             print "<div class='radio'>
-                        <label><input type='radio' name='album_id' value=".$linha['id'].">".$linha['name']."</label>
+                        <a href='admin.php?id=".$linha['id']."&action=remove'>".$linha['name']."</a>
                    </div>";
 
         }
     }
-
 }

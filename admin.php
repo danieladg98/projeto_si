@@ -28,6 +28,21 @@ include_once 'parts/navbar.php';
 include_once 'parts/verifyifloggedadmin.php';
 ?>
 
+<?php
+//Ligação à base de dados
+$servername = "localhost";
+$username = "root";
+$password = "";
+$bd = "Projeto_Si";
+$conn = mysqli_connect($servername, $username, $password, $bd);
+if (!$conn) {
+    die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
+    //Caso haja ligação executa o código abaixo!vv
+}
+
+?>
+
+
 <div>
     <br>
     <br>
@@ -38,7 +53,7 @@ include_once 'parts/verifyifloggedadmin.php';
 
     <div class="col-md-4">
         <h3>ADD ALBUM</h3>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post">
             <label for="image">Image</label>
             <br/>
             <input type="file" name="album_cover" class="picture" value=""/>
@@ -96,70 +111,151 @@ include_once 'parts/verifyifloggedadmin.php';
 
     <div class="col-md-4">
         <h3>EDIT ALBUM</h3>
-        <form action="" method="post" enctype="multipart/form-data">
-            <label for="image">Image</label>
-            <br/>
-            <input type="file" name="album_cover" class="picture" value=""/>
-            <p id="error1" style="display:none; color:#FF0000;">
-                Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.
-            </p>
-            <p id="error2" style="display:none; color:#FF0000;">
-                Maximum File Size Limit is 1MB.
-            </p>
-            <br/>
-            <br/>
-            <label for="album">Name</label>
-            <br/>
-            <input type="text" name="name" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <label for="genre">Artist</label>
-            <br/>
-            <input type="text" name="artist" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <label for="price">Release Date (yyyy-mm-dd)</label>
-            <br/>
-            <input type="text" name="release_date" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <label for="artist">Genre</label>
-            <br/>
-            <input type="text" name="genre" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <label for="stock">Price</label>
-            <br/>
-            <input type="text" name="price" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <label for="stock">Stock</label>
-            <br/>
-            <input type="text" name="stock" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <label for="stock">Description</label>
-            <br/>
-            <input type="text" name="description" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <label for="stock">Tracks (separed by commas)</label>
-            <br/>
-            <input type="text" name="tracks" class="nonpicture" value=""/>
-            <br/>
-            <br/>
-            <input class="btn btn-secondary" type="submit" name="edit_album" value="Edit"/>
-        </form>
+        <?php
+
+        if (isset($_GET['id']) && isset($_GET['action'])) {
+            $fillId = $_GET['id'];
+
+            if ($_GET['action'] == "edit") {
+
+                $resultados = mysqli_query($conn, "select * from albums where id='".$fillId."'");
+                $linha = mysqli_fetch_assoc($resultados);
+
+                $resultadosMusicas = mysqli_query($conn, "select name from musics where albums_id='".$fillId."'");
+                $linhasMusicas = mysqli_fetch_assoc($resultadosMusicas);
+
+                print "
+                <form action='' method='post'>
+                <!--<label for=\"image\">Image</label>
+                <br/>
+                <input type=\"file\" name=\"album_cover\" class=\"picture\" value=\"\"/>
+                <p id=\"error1\" style=\"display:none; color:#FF0000;\">
+                    Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.
+                </p>
+                <p id=\"error2\" style=\"display:none; color:#FF0000;\">
+                    Maximum File Size Limit is 1MB.
+                </p>
+                <br/>
+                <br/>-->
+                <label for='album'>Name</label>
+                <br/>
+                <input type='text' name='name' value='".$linha['name']."'/>
+                <br/>
+                <br/>
+                <label for='artist'>Artist</label>
+                <br/>
+                <input type='text' name='artist' value='".$linha['artist']."'/>
+                <br/>
+                <br/>
+                <label for='release_date'>Release Date (yyyy-mm-dd)</label>
+                <br/>
+                <input type='text' name='release_date' value='".$linha['release_date']."'/>
+                <br/>
+                <br/>
+                <label for='genre'>Genre</label>
+                <br/>
+                <input type='text' name='genre' value='".$linha['genre']."'/>
+                <br/>
+                <br/>
+                <label for='price'>Price</label>
+                <br/>
+                <input type='text' name='price' value='".$linha['price']."'/>
+                <br/>
+                <br/>
+                <label for='stock'>Stock</label>
+                <br/>
+                <input type='text' name='stock' value='".$linha['stock']."'/>
+                <br/>
+                <br/>
+                <label for='description'>Description</label>
+                <br/>
+                <input type='text' name='description' value='".$linha['description']."'/>
+                <br/>
+                <br/>
+                <label for='tracks'>Tracks (separed by commas)</label>
+                <br/>
+                <input type='text' name='tracks' value='".$linhasMusicas['name']."'/>
+                <br/>
+                <br/>
+                <input class='btn btn-secondary' type='submit' name='edit_album' value='Edit'/>
+            </form>
+            ";
+            } if ($_GET['action'] == "remove") {
+                print "
+                <form action='' method='post'>
+                <input class='form-control' type='text' name='adminInput_edit' placeholder='Search'   autocomplete='off'>
+                ";
+                include 'parts/adminSearchEdit.php';
+                print "
+                <input class='btn btn-secondary' type='submit' name='album_search_edit' value='Search'/>
+                <input class='btn btn-secondary' type='submit' name='edit_album' value='Edit' style='display: none;'/>
+            </form>
+            ";
+            }
+        }
+
+        else {
+            print "
+            <form action='' method='post'>
+                <input class='form-control' type='text' name='adminInput_edit' placeholder='Search'   autocomplete='off'>
+                ";
+                include 'parts/adminSearchEdit.php';
+                print "
+                <input class='btn btn-secondary' type='submit' name='album_search_edit' value='Search'/>
+                <input class='btn btn-secondary' type='submit' name='edit_album' value='Edit' style='display: none;'/>
+            </form>
+            ";
+        }
+
+        ?>
+
     </div>
 
     <div class="col-md-4">
         <h3>REMOVE ALBUM</h3>
-        <form action="" method="post">
-            <input class="form-control" type="text" name="adminInput_remove" placeholder="Search" onkeyup="processAdmin()" autocomplete="off">
-            <input class="btn btn-secondary" type="submit" name="album_search_remove" value="" style="display: none;"/>
-            <?php include "parts/adminSearch.php"?>
-            <input class="btn btn-secondary" type="submit" name="remove_album" value="Remove"/>
-        </form>
+        <?php
+
+        if (isset($_GET['id']) && isset($_GET['action'])) {
+            $fillId = $_GET['id'];
+
+            if ($_GET['action'] == "remove") {
+
+                $resultados = mysqli_query($conn, "select * from albums where id='".$fillId."'");
+                $linha = mysqli_fetch_assoc($resultados);
+
+                print "
+                <form action='' method='post'>
+                <input class='form-control' type='text' name='album_name' placeholder='".$linha['name']."' value='".$linha['name']."' disabled>
+                <input class='form-control' type='text' name='album_id' placeholder='".$linha['name']."' value='".$linha['id']."' style='display: none;'>
+                <a><button class='btn btn-secondary' href='admin.php'>Cancel</button></a>
+                <input class='btn btn-secondary' type='submit' name='remove_album' value='Remove'/>
+                </form>
+            ";
+            }
+             if ($_GET['action'] == "edit") {
+                 print "
+            <form action='' method='post'>
+            <input class='form-control' type='text' name='adminInput_remove' placeholder='Search'   autocomplete='off'>";
+                 include "parts/adminSearchRemove.php";
+                 print "
+            <input class='btn btn-secondary' type='submit' name='album_search_remove' value='Search'/>
+            </form>
+            ";
+            }
+        }
+
+        else {
+            print "
+            <form action='' method='post'>
+            <input class='form-control' type='text' name='adminInput_remove' placeholder='Search'   autocomplete='off'>";
+            include "parts/adminSearchRemove.php";
+            print "
+            <input class='btn btn-secondary' type='submit' name='album_search_remove' value='Search'/>
+            </form>
+            ";
+        }
+
+        ?>
     </div>
 </div>
 
@@ -195,20 +291,19 @@ include_once 'parts/verifyifloggedadmin.php';
 </script>
 
 <?php
-//Ligação à base de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$bd = "Projeto_Si";
-$conn = mysqli_connect($servername, $username, $password, $bd);
-if (!$conn) {
-    die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
-    //Caso haja ligação executa o código abaixo!vv
+
+//verfica se edit foi pressionado
+if (isset($_POST['edit_album'])) {
+    
 }
 
 //verfica se remove foi pressionado
-if (isset($_POST['remove'])) {
-
+if (isset($_POST['remove_album'])) {
+    if (isset($_POST['album_id'])) {
+        $albumId = $_POST['album_id'];
+        mysqli_query($conn, "update albums SET active ='0' where id='$albumId'");
+    } else {
+    }
 }
 
 //verfica se add foi pressionado
