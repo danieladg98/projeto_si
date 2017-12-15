@@ -36,34 +36,34 @@ include_once 'parts/navbar.php';
 
 
 
-    <div class="row">
-        <div class="col-3">
+<div class="row">
+    <div class="col-3">
 
-        </div>
-        <div class="col-9">
-            <h2>Our Products</h2>
+    </div>
+    <div class="col-9">
+        <h2>Our Products</h2>
 
-            <?php
+        <?php
 
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $bd = "Projeto_Si";
-            $conn = mysqli_connect($servername, $username, $password, $bd);
-            if (!$conn) {
-                die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
-                //Caso haja ligação executa o código abaixo!vv
-            }
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $bd = "Projeto_Si";
+        $conn = mysqli_connect($servername, $username, $password, $bd);
+        if (!$conn) {
+            die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
+            //Caso haja ligação executa o código abaixo!vv
+        }
 
-            $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 order by release_date desc");
-            $nrows = ceil(mysqli_num_rows($resultados)/3);
+        $resultados = mysqli_query($conn, "select * from compra where clients_id='".$_SESSION['user_id']."' and finalizado='1' order by compra_data desc");
+        $nrows = ceil(mysqli_num_rows($resultados)/3);
 
-            for ($i = 0; $i < $nrows; $i++) {
-                print "<div class='row'>";
-                for($j = 0; $j < 3; $j++) {
-                    while ($linha = mysqli_fetch_assoc($resultados)) {
+        for ($i = 0; $i < $nrows; $i++) {
+            print "<div class='row'>";
+            for($j = 0; $j < 3; $j++) {
+                while ($linha = mysqli_fetch_assoc($resultados)) {
 
-                        print "<a class='mx-left' href='vinyl.php?id=".$linha['id']."'><div class='card border-0' style='width: 20rem;'>
+                    print "<a class='mx-left' href='vinyl.php?id=".$linha['id']."'><div class='card border-0' style='width: 20rem;'>
                         <img class='card-img-top' src='" . $linha['image'] . "' alt='Card image cap'>
                         <div class='card-block'>
                             <h4 class='card-title'>".$linha['name']."</h4>
@@ -73,16 +73,16 @@ include_once 'parts/navbar.php';
                     </div></a>
                   ";
 
-                    }
                 }
-                print "</div>";
             }
+            print "</div>";
+        }
 
 
-            ?>
+        ?>
 
-        </div>
     </div>
+</div>
 
 
 

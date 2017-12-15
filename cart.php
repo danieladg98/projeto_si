@@ -48,7 +48,7 @@ while ($linha = mysqli_fetch_assoc($resultados)) {
     $albumsTotal += $linha['single_total'];
 }
 
-mysqli_query($conn, "UPDATE compra SET total ='" . $albumsTotal . "' WHERE clients_id = '" . $_SESSION['user_id'] . "' ") or die("Error: " . mysqli_error($conn));
+mysqli_query($conn, "UPDATE compra SET total ='" . $albumsTotal . "' WHERE clients_id = '" . $_SESSION['user_id'] . "' and finalizado='0' ") or die("Error: " . mysqli_error($conn));
 
 ?>
 
