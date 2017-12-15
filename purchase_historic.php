@@ -52,33 +52,31 @@ include_once 'parts/navbar.php';
                 //Caso haja ligação executa o código abaixo!vv
             }
 
-            $resultados = mysqli_query($conn, "select * from compra, produtos, albums where produtos.compra_id = compra.id and produtos.albums_id=albums.id and compra.clients_id='" . $_SESSION['user_id'] . "' and compra.finalizado='1' order by compra.data_compra asc");
-
-            $searchRows = mysqli_query($conn, "select DISTINCT compra_id from compra, produtos, albums where produtos.compra_id = compra.id and produtos.albums_id=albums.id and compra.clients_id='" . $_SESSION['user_id'] . "' and compra.finalizado='1' order by compra.data_compra asc");
+            $searchRows = mysqli_query($conn, "select DISTINCT compra_id from compra, produtos, albums where produtos.compra_id = compra.id and produtos.albums_id=albums.id and compra.clients_id='" . $_SESSION['user_id'] . "' and compra.finalizado='1' order by compra.data_compra desc");
             $nrows = mysqli_num_rows($searchRows);
 
-            print $nrows;
-
+            $searchDates = mysqli_query($conn, "select data_compra, total from compra where clients_id='" . $_SESSION['user_id'] . "' and finalizado = '1'");
 
             for ($i = 0; $i < $nrows; $i++) {
-                print "<div class='row'>
-                        <h4></h4>";
-                for ($j = 0; $j < 3; $j++) {
-                    while ($linha = mysqli_fetch_assoc($searchRows)) {
+                while($buyDates = mysqli_fetch_assoc($searchDates)){
+                    print "<div class='row'><h4>".$buyDates['data_compra']."</h4></div>";
+                    print "<div class='row'>";
+                        $resultados = mysqli_query($conn, "select * from compra, produtos, albums where produtos.compra_id = compra.id and produtos.albums_id=albums.id and compra.clients_id='" . $_SESSION['user_id'] . "' and compra.finalizado='1' and compra.data_compra='".$buyDates['data_compra']."'order by compra.data_compra desc");
+                        while ($linha = mysqli_fetch_assoc($resultados)) {
+                            print "<div class='card border-0 col-4' style='width: 20rem;'>
+                                        <img class='card-img-top' src='" . $linha['image'] . "' alt='Card image cap'>
+                                        <div class='card-block'>
+                                            <h4 class='card-title'>" . $linha['name'] . "</h4>
+                                            <p class='card-text'>" . $linha['artist'] . "</p>
+                                            <p class='card-text'>x " . $linha['qtd'] . " € " . $linha['single_total'] . "</p>
+                                         </div>
+                                  </div>
+                                  ";
 
-                        print "<div class='card border-0' style='width: 20rem;'>
-                                <img class='card-img-top' src='" . $linha['image'] . "' alt='Card image cap'>
-                                <div class='card-block'>
-                                    <h4 class='card-title'>" . $linha['name'] . "</h4>
-                                    <p class='card-text'>" . $linha['artist'] . "</p>
-                                    <p class='card-text'>€ " . $linha['single_total'] . "</p>
-                                </div>
-                           </div>
-                          ";
-
-                    }
+                        }
+                    print "<h4> Total:  ".$buyDates['total']."</h4>";
+                    print "</div>";
                 }
-                print "</div>";
             }
 
 
