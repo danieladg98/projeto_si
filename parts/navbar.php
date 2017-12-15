@@ -43,7 +43,7 @@
                     $resultados = mysqli_query($conn, "select balance from clients where id=".$_SESSION['user_id'].";");
                     $linha = mysqli_fetch_assoc($resultados);
                     $user= $_SESSION['user_id'];
-                    $resultados2 = mysqli_query($conn, "select clients_id from message_read where clients_id='$user' AND msg_read='1'");
+                    $resultados2 = mysqli_query($conn, "select clients_id from message_read where clients_id='$user' AND msg_read='0'");
                     $nrows = ceil(mysqli_num_rows($resultados2));
                     print '<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' . $_SESSION['name'] . ' </a>';
 
