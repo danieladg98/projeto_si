@@ -75,7 +75,7 @@
                 ?>
             </li>
             <li class="nav-item">
-                <i class="nav-link fa fa-shopping-bag" href="#"></i>
+                <a href="cart.php"><i class="nav-link fa fa-shopping-bag"></i></a>
             </li>
         </ul>
     </div>
