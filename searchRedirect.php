@@ -11,54 +11,16 @@ if (!$conn) {
     //Caso haja ligação executa o código abaixo!vv
 }
 
-//Check whether userInput exists or not
-
 if(isset($_POST['search_submit'])){
+    if(isset($_POST['searchInput']) && !empty($_POST['searchInput'])) {
 
-    if (isset($_POST['userInput'])) {
-        $value = $_POST['userInput']; //assign the value
+        $searchInput = $_POST['searchInput'];
+
+
+
     } else {
-        $value = "";
+        print "No data";
     }
-//Select query
-
-    $sql = "SELECT name, id FROM albums WHERE name LIKE '%" . $value . "%';";
-    if ($result = mysqli_query($conn, $sql)) {
-        if (mysqli_num_rows($result) > 0) {
-//Store the result in an array list[]
-
-            while ($row = mysqli_fetch_array($result)) {
-                $listname[] = $row['name'];
-                $listid[] = $row['id'];
-            }
-        } else {
-//set a null value to list[] if no result to prevent error
-            $listname[] = "";
-            $listid[] = "";
-        }
-    }
-
-    if (!empty($value)) {
-        if ($matched = preg_grep('~' . $value . '~', $listname)) {
-            $count = 0;
-            echo '<ul>';
-            while ($count < 5) {
-                if (isset($matched[$count])) {
-                    /*
-                    link the real target search file which should be opened when we click the search button or select the one from the drop down suggestion.
-                    */
-                    //echo '<a href=vinyl.php?id=' . $listid[$count] . '><li>' . $matched[$count] . '</li></a>';
-                    print implode(",", $listid);
-                }
-                $count++;
-            }
-            echo '</ul>';
-        } else {
-            echo "No result";
-        }
-    }
-
 }
-
 
 ?>

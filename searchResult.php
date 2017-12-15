@@ -39,6 +39,8 @@ include_once 'parts/navbar.php';
     <h2>Search</h2>
 
     <?php
+
+    //Ligação à base de dados
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -49,30 +51,71 @@ include_once 'parts/navbar.php';
         //Caso haja ligação executa o código abaixo!vv
     }
 
-    $resultados = mysqli_query($conn, "select id, artist, name, genre, price from albums where active = 1;");
-    $nrows = ceil(mysqli_num_rows($resultados)/3);
+    if(isset($_POST['search_submit'])){
+        if(isset($_POST['searchInput']) && !empty($_POST['searchInput'])) {
 
-    for ($i = 0; $i < $nrows; $i++) {
-        print "<div class='row'>";
-        for($j = 0; $j < 3; $j++) {
-            while ($linha = mysqli_fetch_assoc($resultados)) {
+            $searchInput = $_POST['searchInput'];
 
-                print "<a class='mx-auto' href='vinyl.php?id=".$linha['id']."'><div class='card border-0' style='width: 20rem;'>
-                        <img class='card-img-top' src='img/cerdo%20patatero.jpg' alt='Card image cap'>
+            $searchAlbum = mysqli_query($conn, "SELECT * FROM albums WHERE name LIKE '%" . $searchInput . "%';");
+            $searchMusic = mysqli_query($conn, "SELECT * FROM musics, albums WHERE musics.albums_id=albums.id and musics.name LIKE '%" . $searchInput . "%';");
+            $rowsAlbum = mysqli_num_rows($searchAlbum);
+            $rowsMusic = mysqli_num_rows($searchMusic);
+
+            $nrowsA = ceil(mysqli_num_rows($searchAlbum) / 3);
+            $nrowsM = ceil(mysqli_num_rows($searchMusic) / 3);
+
+            if ($rowsAlbum > 0) {
+                print "<h5>Searching for albuns:</h5>";
+                for ($i = 0; $i < $nrowsA; $i++) {
+                    print "<div class='row'>";
+                    for ($j = 0; $j < 3; $j++) {
+                        while ($linha = mysqli_fetch_assoc($searchAlbum)) {
+
+                            print "<a class='mx-3' href='vinyl.php?id=" . $linha['id'] . "'><div class='card border-0' style='width: 20rem;'>
+                        <img class='card-img-top' src='" . $linha['image'] . "' alt='Card image cap'>
                         <div class='card-block'>
-                            <h4 class='card-title'>".$linha['name']."</h4>
-                            <p class='card-text'>".$linha['artist']."</p>
-                            <p class='card-text'>€ ".$linha['price']."</p>
+                            <h4 class='card-title'>" . $linha['name'] . "</h4>
+                            <p class='card-text'>" . $linha['artist'] . "</p>
+                            <p class='card-text'>€ " . $linha['price'] . "</p>
                         </div>
                     </div></a>
                   ";
 
+                        }
+                    }
+                    print "</div>";
+                }
             }
-        }
-        print "</div>";
-    }
+            if ($rowsMusic > 0) {
+                {
+                    print "<h5>Searching for Musics:</h5>";
+                    for ($i = 0; $i < $nrowsM; $i++) {
+                        print "<div class='row'>";
+                        for ($j = 0; $j < 3; $j++) {
+                            while ($linha = mysqli_fetch_assoc($searchMusic)) {
 
-    print($_GET("list"));
+                                print "<a class='mx-3' href='vinyl.php?id=" . $linha['id'] . "'><div class='card border-0' style='width: 20rem;'>
+                        <img class='card-img-top' src='" . $linha['image'] . "' alt='Card image cap'>
+                        <div class='card-block'>
+                            <h4 class='card-title'>" . $linha['name'] . "</h4>
+                            <p class='card-text'>" . $linha['artist'] . "</p>
+                            <p class='card-text'>€ " . $linha['price'] . "</p>
+                        </div>
+                    </div></a>
+                  ";
+
+                            }
+                        }
+                        print "</div>";
+                    }
+                }
+
+            } else {
+                print "No data";
+            }
+        }}
+
+
     ?>
 
 

@@ -17,13 +17,12 @@
                 <i class="nav-link fa fa-search" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <form class="form-inline dropdown-item" action="searchRedirect.php" method="post">
-                        <input class="form-control mr-sm-2" type="text" id="userInput" placeholder="Search"
-                               onkeyup="process()" autocomplete="off">
-                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search_submit"
-                               value="Search"/>
+                    <form class="form-inline dropdown-item" action="searchResult.php" method="post">
+                        <input class="form-control mr-sm-2" type="text" id="userInput" name="searchInput" placeholder="Search" onkeyup="process()" autocomplete="off">
+                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search_submit" value="Search"/>
                         <div id="filter"></div>
                     </form>
+
                 </div>
             </li>
             <li class="nav-item dropdown">
