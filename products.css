@@ -1,0 +1,10 @@
+input{
+    padding:0.5rem;
+    margin:0;
+    border: none;
+    background-color: white;
+}
+
+.in input{
+    padding:0.3rem;
+}
