@@ -80,6 +80,20 @@ include_once 'parts/navbar.php';
                 die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
                 //Caso haja ligação executa o código abaixo!vv
             }
+
+            print"<form method='post' action=''>
+                    <p>Date</p>
+                    <div class='in'>
+                    <input type='submit' name='ascending' value='Ascending'>
+                    <input type='submit' name='descending' value='Descending'>
+                    </div>
+                    <p>Price</p>
+                    <div class='in'>
+                    <input type='submit' name='ascending' value='Ascending'>
+                    <input type='submit' name='descending' value='Descending'>
+                    </div>
+                </form>";
+
             if (isset($_POST['newreleases'])) {
                 $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 order by release_date desc limit 6");
                 $nrows = ceil(mysqli_num_rows($resultados) / 3);
@@ -97,7 +111,6 @@ include_once 'parts/navbar.php';
                         </div>
                     </div></a>
                   ";
-
                         }
                     }
                     print "</div>";
@@ -301,13 +314,12 @@ include_once 'parts/navbar.php';
                     print "</div>";
                 }
             } else if (isset($_POST['rock'])) {
-                $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 AND genre = 'Rock' order by release_date desc");
+                $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 AND genre = 'Rock' order by release_date desc);
                 $nrows = ceil(mysqli_num_rows($resultados) / 3);
                 for ($i = 0; $i < $nrows; $i++) {
                     print "<div class='row'>";
                     for ($j = 0; $j < 3; $j++) {
                         while ($linha = mysqli_fetch_assoc($resultados)) {
-
                             print "<a class='mx-left' href='vinyl.php?id=" . $linha['id'] . "'><div class='card border-0' style='width: 20rem;'>
                         <img class='card-img-top' src='" . $linha['image'] . "' alt='Card image cap'>
                         <div class='card-block'>
@@ -355,8 +367,7 @@ include_once 'parts/navbar.php';
 
 
 </body>
-<<<<<<< HEAD
+
 </html>
-=======
-</html>
->>>>>>> 5c3fa8b80a1fba4756c5b55d2698272980e86ed6
+
+
