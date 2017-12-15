@@ -53,7 +53,7 @@
                            </div>';
                     } else {
                         print  "<div class='opdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
-                                <a class='dropdown-item text-center'' href='client.php'>My Account</a>
+                                <a class='dropdown-item text-center' href='client.php'>My Account</a>
                                 <a  class='dropdown-item text-center' href='client_messages.php'>Messages <span class='badge badge-secondary'>" . $nrows . "</span></a>
                                 <a class='dropdown-item text-center' href='logout.php'>Log Out</a>
                                 <div class='dropdown-divider'></div>
