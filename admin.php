@@ -34,89 +34,161 @@ include_once 'parts/verifyifloggedadmin.php';
     <br>
 </div>
 
-<div class="col-md-3">
-    <form action="" method="post" enctype="multipart/form-data">
-        <label for="image">Image</label>
-        <br/>
-        <input type="file" name="album_cover" class="picture" value=""/>
-        <p id="error1" style="display:none; color:#FF0000;">
-            Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.
-        </p>
-        <p id="error2" style="display:none; color:#FF0000;">
-            Maximum File Size Limit is 1MB.
-        </p>
-        <br/>
-        <br/>
-        <label for="album">Name</label>
-        <br/>
-        <input type="text" name="name" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <label for="genre">Artist</label>
-        <br/>
-        <input type="text" name="artist" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <label for="price">Release Date (yyyy-mm-dd)</label>
-        <br/>
-        <input type="text" name="release_date" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <label for="artist">Genre</label>
-        <br/>
-        <input type="text" name="genre" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <label for="stock">Price</label>
-        <br/>
-        <input type="text" name="price" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <label for="stock">Stock</label>
-        <br/>
-        <input type="text" name="stock" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <label for="stock">Description</label>
-        <br/>
-        <input type="text" name="description" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <label for="stock">Tracks (separed by commas)</label>
-        <br/>
-        <input type="text" name="tracks" class="nonpicture" value=""/>
-        <br/>
-        <br/>
-        <input type="submit" name="add" value="Add"/>
-    </form>
+<div class="row">
+
+    <div class="col-md-4">
+        <h3>ADD ALBUM</h3>
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="image">Image</label>
+            <br/>
+            <input type="file" name="album_cover" class="picture" value=""/>
+            <p id="error1" style="display:none; color:#FF0000;">
+                Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.
+            </p>
+            <p id="error2" style="display:none; color:#FF0000;">
+                Maximum File Size Limit is 1MB.
+            </p>
+            <br/>
+            <br/>
+            <label for="album">Name</label>
+            <br/>
+            <input type="text" name="name" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="genre">Artist</label>
+            <br/>
+            <input type="text" name="artist" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="price">Release Date (yyyy-mm-dd)</label>
+            <br/>
+            <input type="text" name="release_date" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="artist">Genre</label>
+            <br/>
+            <input type="text" name="genre" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Price</label>
+            <br/>
+            <input type="text" name="price" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Stock</label>
+            <br/>
+            <input type="text" name="stock" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Description</label>
+            <br/>
+            <input type="text" name="description" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Tracks (separed by commas)</label>
+            <br/>
+            <input type="text" name="tracks" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <input class="btn btn-secondary" type="submit" name="add" id="submit_add" value="Add"/>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <h3>EDIT ALBUM</h3>
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="image">Image</label>
+            <br/>
+            <input type="file" name="album_cover" class="picture" value=""/>
+            <p id="error1" style="display:none; color:#FF0000;">
+                Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.
+            </p>
+            <p id="error2" style="display:none; color:#FF0000;">
+                Maximum File Size Limit is 1MB.
+            </p>
+            <br/>
+            <br/>
+            <label for="album">Name</label>
+            <br/>
+            <input type="text" name="name" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="genre">Artist</label>
+            <br/>
+            <input type="text" name="artist" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="price">Release Date (yyyy-mm-dd)</label>
+            <br/>
+            <input type="text" name="release_date" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="artist">Genre</label>
+            <br/>
+            <input type="text" name="genre" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Price</label>
+            <br/>
+            <input type="text" name="price" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Stock</label>
+            <br/>
+            <input type="text" name="stock" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Description</label>
+            <br/>
+            <input type="text" name="description" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <label for="stock">Tracks (separed by commas)</label>
+            <br/>
+            <input type="text" name="tracks" class="nonpicture" value=""/>
+            <br/>
+            <br/>
+            <input class="btn btn-secondary" type="submit" name="edit_album" value="Edit"/>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <h3>REMOVE ALBUM</h3>
+        <form action="" method="post">
+            <input class="form-control" type="text" name="adminInput_remove" placeholder="Search" onkeyup="processAdmin()" autocomplete="off">
+            <input class="btn btn-secondary" type="submit" name="album_search_remove" value="" style="display: none;"/>
+            <?php include "parts/adminSearch.php"?>
+            <input class="btn btn-secondary" type="submit" name="remove_album" value="Remove"/>
+        </form>
+    </div>
 </div>
 
 <script>
 
-    $('input[type="submit"]').prop("disabled", true);
-    var a=0;
+    $('#submit_add').prop("disabled", true);
+    var a = 0;
     //binds to onchange event of your input field
-    $('.picture').bind('change', function() {
-        if ($('input:submit').attr('disabled',false)){
-            $('input:submit').attr('disabled',true);
+    $('.picture').bind('change', function () {
+        if ($('#submit_add').attr('disabled', false)) {
+            $('#submit_add').attr('disabled', true);
         }
         var ext = $('.picture').val().split('.').pop().toLowerCase();
-        if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+        if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
             $('#error1').slideDown("slow");
             $('#error2').slideUp("slow");
-            a=0;
-        }else{
+            a = 0;
+        } else {
             var picsize = (this.files[0].size);
-            if (picsize > 1000000){
+            if (picsize > 1000000) {
                 $('#error2').slideDown("slow");
-                a=0;
-            }else{
-                a=1;
+                a = 0;
+            } else {
+                a = 1;
                 $('#error2').slideUp("slow");
             }
             $('#error1').slideUp("slow");
-            if (a===1){
-                $('input:submit').attr('disabled',false);
+            if (a === 1) {
+                $('#submit_add').attr('disabled', false);
             }
         }
     });
@@ -132,6 +204,11 @@ $conn = mysqli_connect($servername, $username, $password, $bd);
 if (!$conn) {
     die("Erro na ligacao: " . mysqli_connect_error()); //Mensagem de erro caso nao haja ligação à base de dados
     //Caso haja ligação executa o código abaixo!vv
+}
+
+//verfica se remove foi pressionado
+if (isset($_POST['remove'])) {
+
 }
 
 //verfica se add foi pressionado
