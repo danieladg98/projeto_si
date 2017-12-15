@@ -21,10 +21,6 @@ if (isset($_POST['checkout_submit'])) {
     $rowCart = mysqli_fetch_assoc($searchCart);
     $cartTotal = $rowCart['total'];
 
-    $searchCart = mysqli_query($conn, "select * from produtos where id='" . $_SESSION['user_id'] . "' and finalizado='0';");
-    $rowCart = mysqli_fetch_assoc($searchCart);
-    $cartTotal = $rowCart['total'];
-
 //verifica se o utilizador tem dinheiro suficiente para realizar a compra
     if ($userBalance >= $cartTotal) {
 

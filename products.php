@@ -355,4 +355,8 @@ include_once 'parts/navbar.php';
 
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 5c3fa8b80a1fba4756c5b55d2698272980e86ed6
