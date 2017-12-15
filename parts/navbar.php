@@ -11,7 +11,7 @@
                 <a class="nav-link" href="#">New Releases</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Vinyl</a>
+                <a class="nav-link" href="products.php">Vinyl</a>
             </li>
             <li class="nav-item dropdown">
                 <i class="nav-link fa fa-search" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -55,7 +55,7 @@
                     } else {
                         print  '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-center" href="client.php">My Account</a>
-                                <a  class="dropdown-item text-center" href="client.php">Messages <span class="badge badge-secondary">42</span></a>
+                                <a  class="dropdown-item text-center" href="client_messages.php">Messages <span class="badge badge-secondary">42</span></a>
                                 <a class="dropdown-item text-center" href="logout.php">Log Out</a>
                                 <div class="dropdown-divider"></div>
                                 <p class="dropdown-item text-center"> Balance: '.$linha['balance'].'</p>
