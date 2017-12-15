@@ -8,9 +8,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">New Releases</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="products.php">Vinyl</a>
             </li>
             <li class="nav-item dropdown">

@@ -88,10 +88,6 @@ print "<h4>ACTIVE RECORDS - $numARecords</h4>";
 print "<h4>INACTIVE RECORDS - $numIRecords</h4>";
 print "<h4>RECORDS IN STOCK - $recordsStock</h4>";
 print "<h4>TOTAL SAILS - € $totalSails</h4>";
-print "<h4>LAST MONTH SAILS - $totalSails</h4>";
-print "<h4>BEST SELLING ARTIST- $numClients</h4>";
-
-
 
 
 ?>
