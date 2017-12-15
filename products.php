@@ -187,9 +187,7 @@ include_once 'parts/navbar.php';
                     </div></a>
                   ";
                 }
-<<<<<<< HEAD
-            } else if (isset($_POST['rock'])) {
-                $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 AND genre = 'Rock' order by release_date desc");
+
                 $nrows = ceil(mysqli_num_rows($resultados) / 3);
                 for ($i = 0; $i < $nrows; $i++) {
                     print "<div class='row'>";
@@ -204,13 +202,14 @@ include_once 'parts/navbar.php';
                         </div>
                     </div></a>
                   ";
-=======
+                        }
+
+
+                        print "</div>";
+                    }
+                }
             }
->>>>>>> sortby
-
-            print "</div>";
         }
-
 
 
 
