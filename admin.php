@@ -177,6 +177,7 @@ if (!$conn) {
                 <input type='text' name='tracks' value='".$linhasMusicas['name']."'/>
                 <br/>
                 <br/>
+                <a class='btn btn-secondary' href='admin.php'>Cancel</a>
                 <input class='btn btn-secondary' type='submit' name='edit_album' value='Edit'/>
             </form>
             ";
@@ -227,7 +228,7 @@ if (!$conn) {
                 <form action='' method='post'>
                 <input class='form-control' type='text' name='album_name' placeholder='".$linha['name']."' value='".$linha['name']."' disabled>
                 <input class='form-control' type='text' name='album_id' placeholder='".$linha['name']."' value='".$linha['id']."' style='display: none;'>
-                <a><button class='btn btn-secondary' href='admin.php'>Cancel</button></a>
+                <a class='btn btn-secondary' href='admin.php'>Cancel</a>
                 <input class='btn btn-secondary' type='submit' name='remove_album' value='Remove'/>
                 </form>
             ";
