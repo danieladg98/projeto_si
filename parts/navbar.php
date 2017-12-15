@@ -11,7 +11,7 @@
                 <a class="nav-link" href="#">New Releases</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Vinyl</a>
+                <a class="nav-link" href="products.php">Vinyl</a>
             </li>
             <li class="nav-item dropdown">
                 <i class="nav-link fa fa-search" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"

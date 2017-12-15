@@ -37,9 +37,9 @@ include_once 'parts/navbar.php';
 
 
     <div class="row">
-        <div class="col-3">
+                <div class="col-3">
 
-        </div>
+                </div>
         <div class="col-9">
             <h2>Our Products</h2>
 
