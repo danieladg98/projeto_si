@@ -8,3 +8,7 @@ input{
 .in input{
     padding:0.3rem;
 }
+
+.alinhar_d{
+    text-align: right;
+}
