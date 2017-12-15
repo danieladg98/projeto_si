@@ -32,7 +32,7 @@ if ((isset($_POST['vinyl_quantity']) && !empty($_POST['vinyl_quantity']))) {
     $basketId = $linhaId['id'];
 
     //verifica se o album já está no inventário e caso esteja, atualiza os valores
-    $resultados = mysqli_query($conn, "SELECT albums_id FROM produtos WHERE albums_id = '$albumId' AND compra_id='$cartId'");
+    $resultados = mysqli_query($conn, "SELECT albums_id FROM produtos WHERE albums_id = '$albumId' AND compra_id='$basketId'");
     if(mysqli_num_rows($resultados) == 1) {
         $linha = mysqli_fetch_assoc($resultados);
 
@@ -43,12 +43,12 @@ if ((isset($_POST['vinyl_quantity']) && !empty($_POST['vinyl_quantity']))) {
         $updatedQtt = $currentQtt + $albumQtt;
         $updatedprice = $updatedQtt * $linhaPrice['price'];
 
-        mysqli_query($conn,"UPDATE produtos SET qtd ='".$updatedQtt."', album_total = '$updatedprice' WHERE albums_id = '".$linha['albums_id']."' ") or die("Error: " . mysqli_error($conn));
+        mysqli_query($conn,"UPDATE produtos SET qtd ='".$updatedQtt."', single_total = '$updatedprice' WHERE albums_id = '".$linha['albums_id']."' ") or die("Error: " . mysqli_error($conn));
 
     } else {
 
-        //inserção dos dados na tabela mensagens
-        $sql = "INSERT INTO produtos (albums_id, total, compra_id, qtd) VALUES(
+        //inserção dos dados na tabela produtos
+        $sql = "INSERT INTO produtos (albums_id, single_total, compra_id, qtd) VALUES(
         '" . mysqli_real_escape_string($conn, $albumId) . "',
         '" . mysqli_real_escape_string($conn, $albumPrice) . "',
         '" . mysqli_real_escape_string($conn, $basketId) . "',

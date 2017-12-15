@@ -55,7 +55,7 @@ include_once 'parts/navbar.php';
                 //Caso haja ligação executa o código abaixo!vv
             }
 
-            $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 order by release_date");
+            $resultados = mysqli_query($conn, "select id, artist, name, genre, release_date, price, image from albums where active = 1 order by release_date desc");
             $nrows = ceil(mysqli_num_rows($resultados)/3);
 
             for ($i = 0; $i < $nrows; $i++) {
