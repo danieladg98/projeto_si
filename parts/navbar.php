@@ -39,9 +39,13 @@
 
                     $resultados = mysqli_query($conn, "select balance from clients where id=".$_SESSION['user_id'].";");
                     $linha = mysqli_fetch_assoc($resultados);
+<<<<<<< HEAD
                     $user= $_SESSION['user_id'];
                     $resultados2 = mysqli_query($conn, "select clients_id from message_read where clients_id='$user' AND msg_read='1'");
                     $nrows = ceil(mysqli_num_rows($resultados2));
+=======
+
+>>>>>>> parent of ffae91d... Merge branch 'master' of https://github.com/danieladg98/projeto_si
                     print '<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ' . $_SESSION['name'] . ' </a>';
 
                     if ($_SESSION['admin'] == true) {
@@ -52,6 +56,7 @@
                                 <a class='dropdown-item text-center' href='logout.php'>Log Out</a>
                             </div>";
                     } else {
+<<<<<<< HEAD
                         print  "<div class='opdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
                                 <a class='dropdown-item text-center' href='client.php'>My Account</a>
                                 <a  class='dropdown-item text-center' href='client_messages.php'>Messages <span class='badge badge-secondary'>" . $nrows . "</span></a>
@@ -59,6 +64,15 @@
                                 <div class='dropdown-divider'></div>
                                 <p class='dropdown-item text-center'> Balance: " .$linha['balance']. "</p>
                            </div>";
+=======
+                        print  '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-center" href="client.php">My Account</a>
+                                <a  class="dropdown-item text-center" href="client_messages.php">Messages <span class="badge badge-secondary">42</span></a>
+                                <a class="dropdown-item text-center" href="logout.php">Log Out</a>
+                                <div class="dropdown-divider"></div>
+                                <p class="dropdown-item text-center"> Balance: '.$linha['balance'].'</p>
+                           </div>';
+>>>>>>> parent of ffae91d... Merge branch 'master' of https://github.com/danieladg98/projeto_si
                     }
                 } else {
                     print '<a class="nav-link" data-toggle="modal" data-target="#loginModal">Log In</a>';

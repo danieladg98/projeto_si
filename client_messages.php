@@ -38,46 +38,65 @@ if (!$conn) {
     //Caso haja ligação executa o código abaixo!vv
 }
 ?>
-<div class='col-2'>
-    <br>
-    <br>
-    <br>
+
+<div class=''>
+    <div>
+        <br>
+        <br>
+        <br>
+    </div>
     <h2>Messages</h2>
-</div>
-
-<div class='col-8'>
-
     <div>
         <br>
         <br>
         <br>
     </div>
 
-    <form method="post" action="">
     <?php
-    $user_id=$_SESSION['user_id'];
-    $resultados = mysqli_query($conn, "select messages_id,msg_read,clients_id from message_read where clients_id='$user_id'");
+    $resultados = mysqli_query($conn, "select id,message_date_time,content from messages");
     $nrows = ceil(mysqli_num_rows($resultados));
+
     for ($i = 0; $i < $nrows; $i++) {
         while ($linha = mysqli_fetch_assoc($resultados)) {
-            $mensagem_id = $linha['messages_id'];
-            $resultados2 = mysqli_query($conn, "select content,message_date_time from messages where id='$mensagem_id'");
-            $linha2 = mysqli_fetch_assoc($resultados2);
-            $msgid=$linha['messages_id'];
-            mysqli_query($conn, "UPDATE message_read SET msg_read='1' WHERE messages_id='$msgid' AND clients_id='$user_id'");
-            print " <div class='container border'>
-                    <p class='justify'>" . $linha2['message_date_time'] . "</p>
-                    <div class=''>
-                        <p>" . $linha2['content'] . "</p>
+
+            print " <div class='col-8'>
+                    <button  class='accordion justify'> " . $linha['message_date_time'] . " </button>
+
+                    <div class='panel'>
+                        <p>" . $linha['content'] . "</p>
                     </div>
                     </div>";
         }
     }
-
+    for ($i = 0; $i < $nrows; $i++) {
+        while ($linha = mysqli_fetch_assoc($resultados)) {
+         $resultados_read = mysqli_query($conn, "select msg_read from messages_read WHERE clients_id ='{$_SESSION['user_id']}' AND messages_id = '{$linha['id']}'");
+         $linha_read = mysqli_fetch_assoc($resultados);
+        }
+    }
     ?>
-    </form>
+
 </div>
 
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            <?php if ($linha_read['msg_read'] = 0) {
+            $linha_read['msg_read'] = 1;
+        }?>
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+
+</script>
 </body>
 </html>
 
